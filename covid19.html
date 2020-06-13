@@ -6,6 +6,20 @@ div.a {
   padding-top: 330px;
   font-size: 25px;
 }
+
+
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+  
 </style>
 
 <head>
@@ -13,13 +27,21 @@ div.a {
 	<title>COVID-19 Testing Locations</title>
 	<h1 style="background-color:#500000; color:#FFFFFF; font-family: 'Times New Roman';">COVID-19 Testing Locations</h1>
 	</div>
+	
+	
+    <script>
+	window.location.href = 'getLocaions.php';
+	</script>
+  
 </head>
 
 <body>
+
+
 	<div align="center" style= "font-family: 'Times New Roman';">
 		<form action="getLocaions.php" method="requst">
 			<label for="stateName">State Name: </label>
-			<select id ="stateName" name="stateName">
+			<select id ="stateName" name="stateName"> <!-- onchange="getSelected()"> -->
 				<option value="alabama">Alabama</option>
 				<option value="alaska">Alaska</option>
 				<option value="arizona">Arizona</option>
@@ -48,7 +70,7 @@ div.a {
 				<option value="nebraska">Nebraska</option>
 				<option value="nevada">Nevada</option>
 				<option value="new-hampshire">New-Hampshire</option>
-				<option value="new-jerse">New-Jerse</option>
+				<option value="new-jersey">New-Jersey</option>
 				<option value="new-mexico">New-Mexico</option>
 				<option value="new-york">New-York</option>
 				<option value="north-carolina">North-Carolina</option>
@@ -67,8 +89,10 @@ div.a {
 				<option value="wisconsin">Wisconsin</option>
 				<option value="wyoming">Wyoming</option>
 			</select>
-			<input type="submit" value="Submit">
+				<input type="submit" value="Submit">
 		</form>
 	</div>
+		
+		
 </body>
 </html>
