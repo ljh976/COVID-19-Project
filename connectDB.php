@@ -1,9 +1,9 @@
 <?php
-	//info removed 
+
 	$servername = "";
 	$username = "";
 	$password = "";
-	$dbname = "";
+	$dbname = "covid19DB";
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);
 

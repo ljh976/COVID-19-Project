@@ -27,7 +27,7 @@ echo '</style>';
 
 
 
-function printTestLocations($stateName) {
+function printTestLocations($stateName, $x) {
 	$json_url = 'https://covid-19-testing.github.io/locations/' . $stateName . '/complete.json';
 	
 	$json = @file_get_contents($json_url);
@@ -52,8 +52,7 @@ function printTestLocations($stateName) {
 	echo '</tr>';
 	
 	$monDaytoFriday = array("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN");
-	
-	@$x = $_GET["id"]-1;
+
 	//for ($x = 0; $x < count($data); $x++) {
 		echo '<tr>';
 		echo '<td>' . @($data[$x]->name) . '</td>'; //name of the place

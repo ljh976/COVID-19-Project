@@ -4,15 +4,15 @@
  ?>
  <html>
   <head>
-	<title> Results </title>
+	<title> Map for COVID-19 Testing Locaions </title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <style>
 		
 		.header {
-		  background-color: #500000;
+		  background-color: #6A0606;
 		  color: #ffffff;
-		  padding: 15px;
+		  padding: 8px;
 		}
 
 		  /* Always set the map height explicitly to define the size of the div
@@ -59,22 +59,21 @@
         height: 100%;
         margin: 0;
         padding: 0;
+        background-color: #FAF7F7;
 		}
 		.map {
-			padding: 10;
 			height: 100%;
 			width: 100%;
 
-			border: 2px solid;
-			padding: 10px;
-			box-shadow: 1px 5px #d1cdcd;
+			border: 1px solid;
+			box-shadow: 1px 3px #d1cdcd;
 			
 		.gm-style-pbc{
 			display: none !important
 		}
 	}
     </style>
-	<div class="header" style="text-align:center; font-size:20"> COVID-19 Testing Locations </div>
+	<div class="header" style="text-align:center; font-size:20"> COVID-19 Testing Locations Map </div>
   </head>
 
   <body>
@@ -142,10 +141,36 @@ console.log(temp_lat);
         function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: new google.maps.LatLng(41.454969, -105.623893),
-          zoom: 4
+          zoom: 4,
+          gestureHandling: "greedy"
         });
         var infoWindow = new google.maps.InfoWindow;
-
+			
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function(position) {
+				var pos = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude,
+				};
+				map.zoom = 10;
+			
+			infoWindow.setPosition(pos);
+            infoWindow.setContent('You are here!');
+            infoWindow.open(map);
+			map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+			
+		}
+		else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+			}
+		
+			
+			
+		
           // Change this depending on the name of your PHP or XML file
 		  
           downloadUrl('<?php echo "createXML.php"; ?>', function(data) {
@@ -195,7 +220,7 @@ console.log(temp_lat);
 			  link.appendChild(a2);
 			  infowincontent.appendChild(link);
 			 
-			  //var image = 'http://coronavirus-testing-locations.com/2937253.png';
+			  var image = 'https://coronavirus-testing-locations.com/icon_hos2.png';
               var icon = customLabel[type] || {};
 			  //marker on the map part
               var marker = new google.maps.Marker({
@@ -203,12 +228,12 @@ console.log(temp_lat);
                 position: point,
 				animation: google.maps.Animation.DROP,
                 label: icon.label,
-				/* add it after find a good icon
+			
 				icon: {
-					size: new google.maps.Size(20, 20),
-					scaledSize: new google.maps.Size(20, 20),
+					size: new google.maps.Size(35, 35),
+					scaledSize: new google.maps.Size(25, 25),
 					url: image
-				}*/
+				}
               });
 
               marker.addListener('click', function() {
@@ -232,6 +257,13 @@ console.log(temp_lat);
             });
           });
         }
+		function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: Cannot find your location.' :
+                              'Error: Please try to use it in another browser or allow GPS.');
+        infoWindow.open(map);
+		}
 
 
       function downloadUrl(url, callback) {
@@ -250,10 +282,7 @@ console.log(temp_lat);
         request.send(null);
       }
       function doNothing() {}
-    
-	
-	
-	</script>
+    </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=&callback&callback=initMap">
     </script>
@@ -366,9 +395,11 @@ console.log(temp_lat);
   <footer>
   
   <p align='right' style="font-family: Times New Roman"> 
-  This is a test version.<br>
-  For any issue or concern, please contact me via email: ljh976@tamu.edu.<br>
+  This is a test version (ver 2.2).<br>
+   <a href="About.html">About</a><br>
+   <a href="https://github.com/ljh976/COVID-19-Project">Github</a><br>
   Data Proviers: The COVID Tracking Project, Postman. <br>
+  For any issue or concern, please contact me via email:<a href="mailto: ljh976@tamu.edu">ljh976@tamu.edu.</a><br>
   Thank you and stay healthy.</p>
   </footer>
 </html>
