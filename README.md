@@ -1,6 +1,8 @@
 # COVID-19-Project
 Informative web application for COVID-19
 
+https://coronavirus-testing-locations.com/
+
 Updates <br>
 Version 1.0: Prototype <br>
 Version 2.1: Deleted first page to pick a state. Improved graphics. Added Google map and markers.<br>
